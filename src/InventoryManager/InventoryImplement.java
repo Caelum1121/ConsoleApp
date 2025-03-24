@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
- * Implementation of the InventoryManager interface
+ * @author Chang Fang Cih - s4073761
  */
 
 public class InventoryImplement implements InventoryManager {

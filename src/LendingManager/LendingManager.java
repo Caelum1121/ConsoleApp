@@ -5,6 +5,9 @@ import entities.lending.LendingRecord;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * @author Chang Fang Cih - s4073761
+ */
 
 public interface  LendingManager {
     /**

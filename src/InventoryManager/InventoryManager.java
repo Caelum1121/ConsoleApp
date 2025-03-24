@@ -5,7 +5,7 @@ import entities.equipment.Equipment;
 import java.util.List;
 
 /**
- * Interface defining methods for managing equipment inventory
+ * @author Chang Fang Cih - s4073761
  */
 public interface InventoryManager {
     /**
