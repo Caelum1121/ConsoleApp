@@ -1,28 +1,44 @@
 package com.university.model;
 
+import jakarta.persistence.*;
 import java.util.Date;
-import java.text.SimpleDateFormat;
 
 /**
+ * Represents a piece of equipment in the university equipment lending system.
  * @author GroupHDGs
  */
+@Entity
+@Table(name = "equipment")
 public class Equipment {
-    public enum Status {
-        AVAILABLE, BORROWED
-    }
-
     public enum Condition {
-        BRAND_NEW, GOOD, NEEDS_MAINTENANCE, DAMAGED, OUT_OF_SERVICE
+        GOOD, FAIR, POOR
     }
 
+    @Id
+    @Column(name = "equipment_id")
     private String equipmentId;
+
+    @Column(name = "name", nullable = false)
     private String name;
-    private Status status;
+
+    @Column(name = "purchase_date")
+    @Temporal(TemporalType.DATE)
     private Date purchaseDate;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "condition")
     private Condition condition;
-    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+
+    @Column(name = "image")
+    private byte[] image;
+
+    protected Equipment() {}
 
     public Equipment(String equipmentId, String name, Date purchaseDate, Condition condition) {
+        this(equipmentId, name, purchaseDate, condition, null);
+    }
+
+    public Equipment(String equipmentId, String name, Date purchaseDate, Condition condition, byte[] image) {
         if (equipmentId == null || equipmentId.trim().isEmpty()) {
             throw new IllegalArgumentException("Equipment ID cannot be null or empty");
         }
@@ -31,41 +47,53 @@ public class Equipment {
         }
         this.equipmentId = equipmentId;
         this.name = name;
-        this.status = Status.AVAILABLE;
         this.purchaseDate = purchaseDate;
         this.condition = condition;
+        this.image = image;
     }
 
     public String getEquipmentId() {
         return equipmentId;
     }
 
+    public void setEquipmentId(String equipmentId) {
+        this.equipmentId = equipmentId;
+    }
+
     public String getName() {
         return name;
     }
 
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Date getPurchaseDate() {
         return purchaseDate;
     }
 
+    public void setPurchaseDate(Date purchaseDate) {
+        this.purchaseDate = purchaseDate;
+    }
+
     public Condition getCondition() {
         return condition;
     }
 
-    public String getFormattedPurchaseDate() {
-        return dateFormat.format(purchaseDate);
+    public void setCondition(Condition condition) {
+        this.condition = condition;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 
     @Override
     public String toString() {
-        return "Equipment{id='" + equipmentId + "', name='" + name + "', status=" + status + "}";
+        return "Equipment{equipmentId='" + equipmentId + "', name='" + name + "'}";
     }
 }

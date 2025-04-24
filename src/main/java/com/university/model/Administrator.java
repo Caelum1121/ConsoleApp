@@ -1,68 +1,43 @@
 package com.university.model;
 
-import java.util.Date;
-import java.util.HashMap;
+import jakarta.persistence.*;
 import java.util.List;
 import java.util.Map;
 
 /**
+ * Represents an administrator user who manages the system.
  * @author GroupHDGs
  */
+@Entity
+@Table(name = "users")
+@DiscriminatorValue("ADMINISTRATOR")
 public class Administrator extends User {
-    private String adminId;
+    protected Administrator() {}
 
-    public Administrator(String username, String password, String adminId) {
-        super(username, password);
-        if (adminId == null || adminId.trim().isEmpty()) {
-            throw new IllegalArgumentException("Admin ID cannot be null or empty");
-        }
-        this.adminId = adminId;
+    public Administrator(String username, String password, String entityId) {
+        super(username, password, entityId);
     }
 
-    public String getAdminId() {
-        return adminId;
-    }
-
-    public void setAdminId(String adminId) {
-        if (adminId == null || adminId.trim().isEmpty()) {
-            throw new IllegalArgumentException("Admin ID cannot be null or empty");
-        }
-        this.adminId = adminId;
-    }
-
-    public Equipment createEquipment(String equipmentId, String name, Date purchaseDate,
+    public Equipment createEquipment(String equipmentId, String name, java.util.Date purchaseDate,
                                      Equipment.Condition condition, byte[] image) {
-        Equipment equipment = new Equipment(equipmentId, name, purchaseDate, condition);
-        return equipment;
+        return new Equipment(equipmentId, name, purchaseDate, condition, image);
     }
 
     public void deleteEntity(Object entity) {
-        // Implement soft delete (e.g., set a 'deleted' flag in the database)
+        // Deletion logic handled in DAO
     }
 
     public Map<String, Object> generateSystemStatistics(List<Equipment> equipmentList, List<LendingRecord> lendingRecords) {
-        Map<String, Object> stats = new HashMap<>();
+        Map<String, Object> stats = new java.util.HashMap<>();
         stats.put("totalEquipment", equipmentList.size());
-        stats.put("totalBorrowers", lendingRecords.stream()
-                .map(LendingRecord::getBorrower)
-                .distinct()
-                .count());
+        stats.put("totalBorrowers", lendingRecords.stream().map(LendingRecord::getBorrower).distinct().count());
         stats.put("totalLendingRecords", lendingRecords.size());
-        stats.put("overdueRecords", lendingRecords.stream()
-                .filter(LendingRecord::isOverdue)
-                .count());
-        stats.put("mostBorrowedEquipment", equipmentList.stream()
-                .max((e1, e2) -> Integer.compare(
-                        Math.toIntExact(lendingRecords.stream().filter(r -> r.getEquipment().contains(e1)).count()),
-                        Math.toIntExact(lendingRecords.stream().filter(r -> r.getEquipment().contains(e2)).count())
-                ))
-                .map(Equipment::getName)
-                .orElse("N/A"));
+        stats.put("overdueRecords", lendingRecords.stream().filter(LendingRecord::isOverdue).count());
         return stats;
     }
 
     @Override
     public String toString() {
-        return "Administrator{adminId='" + adminId + "', " + super.toString() + "}";
+        return "Administrator{entityId='" + getEntityId() + "', username='" + getUsername() + "'}";
     }
 }

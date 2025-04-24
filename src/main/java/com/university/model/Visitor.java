@@ -1,26 +1,35 @@
 package com.university.model;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import jakarta.persistence.*;
 
 /**
+ * Represents a non-authenticated visitor in the university equipment lending system.
  * @author GroupHDGs
  */
-public class Visitor extends User {
-    public Visitor() {
-        super("visitor", "none");
+@Entity
+@Table(name = "visitors")
+public class Visitor {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
+
+    public Visitor() {}
+
+    public Visitor(Long id) {
+        this.id = id;
     }
 
-    public List<Equipment> filterEquipment(List<Equipment> equipmentList, String name, Equipment.Condition condition) {
-        return equipmentList.stream()
-                .filter(e -> e.getStatus() == Equipment.Status.AVAILABLE)
-                .filter(e -> name == null || e.getName().toLowerCase().contains(name.toLowerCase()))
-                .filter(e -> condition == null || e.getCondition() == condition)
-                .collect(Collectors.toList());
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Override
     public String toString() {
-        return "Visitor{}";
+        return "Visitor{id=" + id + "}";
     }
 }

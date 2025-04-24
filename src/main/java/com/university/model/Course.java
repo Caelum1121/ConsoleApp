@@ -1,16 +1,31 @@
 package com.university.model;
 
+import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Represents an academic course in the university equipment lending system.
  * @author GroupHDGs
  */
+@Entity
+@Table(name = "courses")
 public class Course {
+    @Id
+    @Column(name = "course_id")
     private String courseId;
+
+    @Column(name = "course_name", nullable = false)
     private String courseName;
+
+    @ManyToOne
+    @JoinColumn(name = "academic_id")
     private Academic academic;
-    private List<Student> enrolledStudents;
+
+    @ManyToMany(mappedBy = "enrolledCourses")
+    private List<Student> enrolledStudents = new ArrayList<>();
+
+    protected Course() {}
 
     public Course(String courseId, String courseName, Academic academic) {
         if (courseId == null || courseId.trim().isEmpty()) {
@@ -25,15 +40,22 @@ public class Course {
         this.courseId = courseId;
         this.courseName = courseName;
         this.academic = academic;
-        this.enrolledStudents = new ArrayList<>();
     }
 
     public String getCourseId() {
         return courseId;
     }
 
+    public void setCourseId(String courseId) {
+        this.courseId = courseId;
+    }
+
     public String getCourseName() {
         return courseName;
+    }
+
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
     }
 
     public Academic getAcademic() {
@@ -41,9 +63,6 @@ public class Course {
     }
 
     public void setAcademic(Academic academic) {
-        if (academic == null) {
-            throw new IllegalArgumentException("Academic staff cannot be null");
-        }
         this.academic = academic;
     }
 
@@ -52,23 +71,17 @@ public class Course {
     }
 
     public void enrollStudent(Student student) {
-        if (student == null) {
-            throw new IllegalArgumentException("Student cannot be null");
+        if (student != null && !enrolledStudents.contains(student)) {
+            enrolledStudents.add(student);
+            student.getEnrolledCourses().add(this);
         }
-        if (enrolledStudents.contains(student)) {
-            throw new IllegalArgumentException("Student is already enrolled");
-        }
-        enrolledStudents.add(student);
     }
 
     public void removeStudent(Student student) {
-        if (student == null) {
-            throw new IllegalArgumentException("Student cannot be null");
+        if (student != null && enrolledStudents.contains(student)) {
+            enrolledStudents.remove(student);
+            student.getEnrolledCourses().remove(this);
         }
-        if (!enrolledStudents.contains(student)) {
-            throw new IllegalArgumentException("Student is not enrolled");
-        }
-        enrolledStudents.remove(student);
     }
 
     @Override

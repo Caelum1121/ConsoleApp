@@ -1,48 +1,30 @@
 package com.university.model;
 
+import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
+ * Represents a student user who can borrow equipment in the university equipment lending system.
  * @author GroupHDGs
  */
+@Entity
+@Table(name = "users")
+@DiscriminatorValue("STUDENT")
 public class Student extends Borrower {
-    private String studentId;
-    private List<LendingRecord> lendingRecords;
-    private List<Course> enrolledCourses;
+    @ManyToMany
+    @JoinTable(
+            name = "course_students",
+            joinColumns = @JoinColumn(name = "student_id"),
+            inverseJoinColumns = @JoinColumn(name = "course_id")
+    )
+    private List<Course> enrolledCourses = new ArrayList<>();
 
-    public Student(String id, String fullName, Date dateOfBirth, String phoneNumber, String email,
-                   String studentId, String username, String password) {
-        super(username, password, new Person(id, fullName, dateOfBirth, phoneNumber, email));
-        if (studentId == null || studentId.trim().isEmpty()) {
-            throw new IllegalArgumentException("Student ID cannot be null or empty");
-        }
-        this.studentId = studentId;
-        this.lendingRecords = new ArrayList<>();
-        this.enrolledCourses = new ArrayList<>();
-    }
+    protected Student() {}
 
-    public String getStudentId() {
-        return studentId;
-    }
-
-    public void setStudentId(String studentId) {
-        if (studentId == null || studentId.trim().isEmpty()) {
-            throw new IllegalArgumentException("Student ID cannot be null or empty");
-        }
-        this.studentId = studentId;
-    }
-
-    public List<LendingRecord> getLendingRecords() {
-        return new ArrayList<>(lendingRecords);
-    }
-
-    public void addLendingRecord(LendingRecord record) {
-        if (record != null) {
-            lendingRecords.add(record);
-        }
+    public Student(String username, String password, String entityId, Person personDetails) {
+        super(username, password, entityId, personDetails);
     }
 
     public List<Course> getEnrolledCourses() {
@@ -50,38 +32,26 @@ public class Student extends Borrower {
     }
 
     public void enrollInCourse(Course course) {
-        if (course == null) {
-            throw new IllegalArgumentException("Course cannot be null");
-        }
-        if (!enrolledCourses.contains(course)) {
+        if (course != null && !enrolledCourses.contains(course)) {
             enrolledCourses.add(course);
-            course.enrollStudent(this);
+            course.getEnrolledStudents().add(this);
+        }
+    }
+
+    public void updatePersonalInfo(String phoneNumber, String email) {
+        if (getPersonDetails() != null) {
+            getPersonDetails().setPhoneNumber(phoneNumber);
+            getPersonDetails().setEmail(email);
         }
     }
 
     @Override
     public List<LendingRecord> getLendingHistory() {
-        return new ArrayList<>(lendingRecords);
-    }
-
-    public List<LendingRecord> filterLendingHistory(Date startDate, Date endDate, LendingRecord.Status status) {
-        return lendingRecords.stream()
-                .filter(r -> startDate == null || !r.getBorrowDate().before(startDate))
-                .filter(r -> endDate == null || !r.getBorrowDate().after(endDate))
-                .filter(r -> status == null || r.getStatus() == status)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public void updatePersonalInfo(ContactInfo contactInfo) {
-        if (contactInfo == null) {
-            throw new IllegalArgumentException("Contact info cannot be null");
-        }
-        getPersonDetails().setContactInfo(contactInfo);
+        return getLendingRecords();
     }
 
     @Override
     public String toString() {
-        return "Student{studentId='" + studentId + "', " + getPersonDetails().toString() + "}";
+        return "Student{entityId='" + getEntityId() + "', username='" + getUsername() + "'}";
     }
 }

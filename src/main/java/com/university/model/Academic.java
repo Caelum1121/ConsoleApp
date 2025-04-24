@@ -1,60 +1,27 @@
 package com.university.model;
 
+import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
+ * Represents an academic staff user who can borrow equipment and manage courses.
  * @author GroupHDGs
  */
+@Entity
+@Table(name = "users")
+@DiscriminatorValue("ACADEMIC")
 public class Academic extends Borrower {
-    private String staffId;
-    private String expertise;
-    private List<Student> supervisedStudents;
-    private List<Course> assignedCourses;
+    @OneToMany(mappedBy = "academic", cascade = CascadeType.ALL)
+    private List<Course> assignedCourses = new ArrayList<>();
 
-    public Academic(String id, String fullName, Date dateOfBirth, String phoneNumber, String email,
-                    String staffId, String expertise, String username, String password) {
-        super(username, password, new Person(id, fullName, dateOfBirth, phoneNumber, email));
-        if (staffId == null || staffId.trim().isEmpty()) {
-            throw new IllegalArgumentException("Staff ID cannot be null or empty");
-        }
-        this.staffId = staffId;
-        this.expertise = expertise;
-        this.supervisedStudents = new ArrayList<>();
-        this.assignedCourses = new ArrayList<>();
-    }
+    protected Academic() {}
 
-    public String getStaffId() {
-        return staffId;
-    }
-
-    public void setStaffId(String staffId) {
-        if (staffId == null || staffId.trim().isEmpty()) {
-            throw new IllegalArgumentException("Staff ID cannot be null or empty");
-        }
-        this.staffId = staffId;
-    }
-
-    public String getExpertise() {
-        return expertise;
-    }
-
-    public void setExpertise(String expertise) {
-        this.expertise = expertise;
-    }
-
-    public List<Student> getSupervisedStudents() {
-        return new ArrayList<>(supervisedStudents);
-    }
-
-    public void addSupervisedStudent(Student student) {
-        if (student != null && !supervisedStudents.contains(student)) {
-            supervisedStudents.add(student);
-        }
+    public Academic(String username, String password, String entityId, Person personDetails) {
+        super(username, password, entityId, personDetails);
     }
 
     public List<Course> getAssignedCourses() {
@@ -62,27 +29,25 @@ public class Academic extends Borrower {
     }
 
     public void assignCourse(Course course) {
-        if (course == null) {
-            throw new IllegalArgumentException("Course cannot be null");
-        }
-        if (!assignedCourses.contains(course)) {
+        if (course != null && !assignedCourses.contains(course)) {
             assignedCourses.add(course);
             course.setAcademic(this);
         }
     }
 
-    @Override
-    public List<LendingRecord> getLendingHistory() {
-        List<LendingRecord> history = new ArrayList<>();
-        for (Student student : supervisedStudents) {
-            history.addAll(student.getLendingRecords());
+    public List<LendingRecord> getStudentLendingRecords() {
+        List<LendingRecord> studentRecords = new ArrayList<>();
+        for (Course course : assignedCourses) {
+            for (Student student : course.getEnrolledStudents()) {
+                studentRecords.addAll(student.getLendingRecords());
+            }
         }
-        return history;
+        return studentRecords;
     }
 
     public Map<String, Object> generateLendingStatistics() {
-        Map<String, Object> stats = new HashMap<>();
-        List<LendingRecord> records = getLendingHistory();
+        Map<String, Object> stats = new java.util.HashMap<>();
+        List<LendingRecord> records = getStudentLendingRecords();
         stats.put("totalBorrowed", records.size());
         stats.put("currentlyBorrowed", records.stream()
                 .filter(r -> r.getStatus() == LendingRecord.Status.BORROWED)
@@ -100,21 +65,20 @@ public class Academic extends Borrower {
         return stats;
     }
 
-    @Override
-    public void updatePersonalInfo(ContactInfo contactInfo) {
-        if (contactInfo == null) {
-            throw new IllegalArgumentException("Contact info cannot be null");
+    public void updatePersonalInfo(String phoneNumber, String email) {
+        if (getPersonDetails() != null) {
+            getPersonDetails().setPhoneNumber(phoneNumber);
+            getPersonDetails().setEmail(email);
         }
-        getPersonDetails().setContactInfo(contactInfo);
     }
 
-    // Add getFullName to resolve the error
-    public String getFullName() {
-        return getPersonDetails().getFullName();
+    @Override
+    public List<LendingRecord> getLendingHistory() {
+        return getLendingRecords();
     }
 
     @Override
     public String toString() {
-        return "Academic{staffId='" + staffId + "', expertise='" + expertise + "', " + getPersonDetails().toString() + "}";
+        return "Academic{entityId='" + getEntityId() + "', username='" + getUsername() + "'}";
     }
 }

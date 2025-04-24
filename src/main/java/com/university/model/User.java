@@ -3,6 +3,7 @@ package com.university.model;
 import jakarta.persistence.*;
 
 /**
+ * Abstract base class for all users in the university equipment lending system.
  * @author GroupHDGs
  */
 @Entity
@@ -27,7 +28,6 @@ public abstract class User {
     @Column(name = "entity_id", nullable = false)
     private String entityId;
 
-    // Default constructor for JPA
     protected User() {}
 
     public User(String username, String password, String entityId) {
@@ -45,7 +45,6 @@ public abstract class User {
         this.entityId = entityId;
     }
 
-    // Getters and setters
     public Long getId() {
         return id;
     }
@@ -80,10 +79,6 @@ public abstract class User {
 
     public void setEntityId(String entityId) {
         this.entityId = entityId;
-    }
-
-    public boolean verifyCredentials(String username, String password) {
-        return this.username.equals(username) && this.password.equals(password);
     }
 
     @Override

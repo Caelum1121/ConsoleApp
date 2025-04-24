@@ -4,19 +4,22 @@
              xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd">
     <persistence-unit name="UniversityPU" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <class>com.university.model.Person</class>
+        <class>com.university.model.User</class>
+        <class>com.university.model.Borrower</class>
         <class>com.university.model.Student</class>
         <class>com.university.model.Academic</class>
         <class>com.university.model.Professional</class>
         <class>com.university.model.Administrator</class>
-        <class>com.university.model.User</class>
+        <class>com.university.model.Visitor</class>
+        <class>com.university.model.LoginRecord</class>
+        <class>com.university.model.Person</class>
         <class>com.university.model.Course</class>
-        <class>com.university.model.LendingRecord</class>
         <class>com.university.model.Equipment</class>
+        <class>com.university.model.LendingRecord</class>
         <properties>
-            <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://db.your-project-ref.supabase.co:5432/postgres?sslmode=require"/>
+            <property name="jakarta.persistence.jdbc.url" value="postgresql://postgres:CzYy1121@db.xldxmxyloshqavusrnzm.supabase.co:5432/postgres"/>
             <property name="jakarta.persistence.jdbc.user" value="postgres"/>
-            <property name="jakarta.persistence.jdbc.password" value="your_supabase_password"/>
+            <property name="jakarta.persistence.jdbc.password" value="CzYy1121"/>
             <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
             <property name="hibernate.hbm2ddl.auto" value="validate"/>
