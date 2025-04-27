@@ -12,8 +12,7 @@ import java.util.stream.Collectors;
  * @author GroupHDGs
  */
 @Entity
-@Table(name = "users")
-@DiscriminatorValue("ACADEMIC")
+@Table(name = "academics")
 public class Academic extends Borrower {
     @OneToMany(mappedBy = "academic", cascade = CascadeType.ALL)
     private List<Course> assignedCourses = new ArrayList<>();

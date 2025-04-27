@@ -11,8 +11,7 @@ import java.util.stream.Collectors;
  * @author GroupHDGs
  */
 @Entity
-@Table(name = "users")
-@DiscriminatorValue("PROFESSIONAL")
+@Table(name = "professionals")
 public class Professional extends Borrower {
     protected Professional() {}
 

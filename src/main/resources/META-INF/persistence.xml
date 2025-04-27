@@ -17,14 +17,16 @@
         <class>com.university.model.Equipment</class>
         <class>com.university.model.LendingRecord</class>
         <properties>
-            <property name="jakarta.persistence.jdbc.url" value="postgresql://postgres:CzYy1121@db.xldxmxyloshqavusrnzm.supabase.co:5432/postgres"/>
-            <property name="jakarta.persistence.jdbc.user" value="postgres"/>
-            <property name="jakarta.persistence.jdbc.password" value="CzYy1121"/>
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://aws-0-ap-southeast-1.pooler.supabase.com:6543/postgres"/>
+            <property name="jakarta.persistence.jdbc.user" value="postgres.xldxmxyloshqavusrnzm"/>
+            <property name="jakarta.persistence.jdbc.password" value="1dUtMDX77m54GE8S"/>
             <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
-            <property name="hibernate.hbm2ddl.auto" value="validate"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="true"/>
+            <property name="hibernate.connection.pool_size" value="10"/>
+            <property name="hibernate.connection.autocommit" value="false"/>
         </properties>
     </persistence-unit>
 </persistence>

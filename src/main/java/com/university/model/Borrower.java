@@ -9,9 +9,7 @@ import java.util.List;
  * @author GroupHDGs
  */
 @Entity
-@Table(name = "users")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "role", discriminatorType = DiscriminatorType.STRING)
+@Table(name = "Borrower")
 public abstract class Borrower extends User {
     @OneToOne
     @JoinColumn(name = "entity_id", referencedColumnName = "id", insertable = false, updatable = false)
@@ -23,7 +21,7 @@ public abstract class Borrower extends User {
     protected Borrower() {}
 
     public Borrower(String username, String password, String entityId, Person personDetails) {
-        super(username, password, entityId);
+        super();
         if (personDetails == null) {
             throw new IllegalArgumentException("Person details cannot be null");
         }

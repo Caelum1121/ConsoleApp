@@ -9,13 +9,12 @@ import java.util.Map;
  * @author GroupHDGs
  */
 @Entity
-@Table(name = "users")
-@DiscriminatorValue("ADMINISTRATOR")
+@Table(name = "Administrator")
 public class Administrator extends User {
     protected Administrator() {}
 
     public Administrator(String username, String password, String entityId) {
-        super(username, password, entityId);
+        super();
     }
 
     public Equipment createEquipment(String equipmentId, String name, java.util.Date purchaseDate,

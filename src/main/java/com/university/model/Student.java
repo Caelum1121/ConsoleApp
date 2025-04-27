@@ -10,8 +10,7 @@ import java.util.List;
  * @author GroupHDGs
  */
 @Entity
-@Table(name = "users")
-@DiscriminatorValue("STUDENT")
+@Table(name = "students")
 public class Student extends Borrower {
     @ManyToMany
     @JoinTable(

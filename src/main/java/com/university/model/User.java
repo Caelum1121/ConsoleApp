@@ -2,19 +2,12 @@ package com.university.model;
 
 import jakarta.persistence.*;
 
-/**
- * Abstract base class for all users in the university equipment lending system.
- * @author GroupHDGs
- */
 @Entity
 @Table(name = "users")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "role", discriminatorType = DiscriminatorType.STRING)
-public abstract class User {
+public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Long id;
+    private String id;
 
     @Column(name = "username", unique = true, nullable = false)
     private String username;
@@ -22,34 +15,37 @@ public abstract class User {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "role", insertable = false, updatable = false)
+    @Column(name = "role", nullable = false)
     private String role;
 
-    @Column(name = "entity_id", nullable = false)
+    @Column(name = "entity_id")
     private String entityId;
 
-    protected User() {}
+    // Constructors
+    public User() {}
 
-    public User(String username, String password, String entityId) {
-        if (username == null || username.trim().isEmpty()) {
-            throw new IllegalArgumentException("Username cannot be null or empty");
-        }
-        if (password == null || password.trim().isEmpty()) {
-            throw new IllegalArgumentException("Password cannot be null or empty");
-        }
-        if (entityId == null || entityId.trim().isEmpty()) {
-            throw new IllegalArgumentException("Entity ID cannot be null or empty");
-        }
+    public User(String id, String username, String password, String role, String entityId) {
+        this.id = id;
         this.username = username;
         this.password = password;
+        this.role = role;
         this.entityId = entityId;
     }
 
-    public Long getId() {
+    public User(String username, String password, String role) {
+        this.id = "u" + System.currentTimeMillis();
+        this.username = username;
+        this.password = password;
+        this.role = role;
+        this.entityId = null;
+    }
+
+    // Getters and Setters
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -73,16 +69,15 @@ public abstract class User {
         return role;
     }
 
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     public String getEntityId() {
         return entityId;
     }
 
     public void setEntityId(String entityId) {
         this.entityId = entityId;
-    }
-
-    @Override
-    public String toString() {
-        return "User{username='" + username + "', role='" + role + "'}";
     }
 }
