@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="asm2_clone.controller.AcademicDashboardController"
+            prefHeight="600.0" prefWidth="600.0">
+    <!-- Header -->
+    <top>
+        <VBox style="-fx-background-color: #111;">
+            <padding><Insets top="18" left="28"/></padding>
+            <Button fx:id="backButton" text="← Back" onAction="#onBack"
+                    style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 15px; -fx-padding: 0 0 10 0;"/>
+            <Label text="UNI LEND" style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+            <Label text="EDUCATION PORTAL" style="-fx-font-size: 14px; -fx-text-fill: #cccccc;"/>
+        </VBox>
+    </top>
+
+    <!-- Main Content -->
+    <center>
+                <VBox alignment="TOP_CENTER" spacing="20">
+                    <Region minHeight="20" maxHeight="20"/>
+                    <VBox alignment="TOP_CENTER" style="-fx-background-color: transparent;">
+                        <VBox style="-fx-background-color: white; -fx-background-radius: 12; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0, 0, 2);" maxWidth="900" minWidth="700">
+                            <padding><Insets top="18" left="28" right="28" bottom="28"/></padding>
+
+                            <!-- Tabs -->
+                            <HBox spacing="30" style="-fx-padding: 0 0 20 0;">
+                                <Label text="Manage Info" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #222; -fx-underline: true;"/>
+                                <Label text="Borrowing Requests" style="-fx-font-size: 16px; -fx-text-fill: #888; -fx-cursor: hand;" onMouseClicked="#onPendingTabClicked"/>
+                                <Label text="Statistics" style="-fx-font-size: 16px; -fx-text-fill: #888; -fx-cursor: hand;" onMouseClicked="#onStatisticsTabClicked" />
+                                <Label text="Borrowing History" style="-fx-font-size: 16px; -fx-text-fill: #888; -fx-cursor: hand;" onMouseClicked="#onHistoryTabClicked"/>
+                                <Label fx:id="equipmentTab" text="Equipment Borrowing" style="-fx-font-size: 16px; -fx-text-fill: #888; -fx-cursor: hand;" onMouseClicked="#onEquipmentTabClicked"/>
+                            </HBox>
+                                <VBox spacing="20" maxWidth="10000">
+                                    <padding>
+                                        <Insets top="10" right="10" bottom="10" left="10"/>
+                                    </padding>
+
+                                <!-- Title and buttons INSIDE the scroll -->
+                                <HBox alignment="CENTER_LEFT">
+                                    <Label text="Staff Profile" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #222;"/>
+                                    <Region HBox.hgrow="ALWAYS"/>
+                                    <Button text="Edit Profile" fx:id="editProfileButton" onAction="#onEdit"
+                                            style="-fx-background-color: black; -fx-text-fill: white; -fx-background-radius: 6; -fx-font-weight: bold;"/>
+                                    <Button text="Confirm" fx:id="confirmButton" onAction="#onConfirm"
+                                            visible="false" style="-fx-background-color: green; -fx-text-fill: white; -fx-background-radius: 6; -fx-font-weight: bold;"/>
+                                </HBox>
+
+                            <!-- Profile Card -->
+                                <VBox spacing="18"
+                                      maxWidth="10000"
+                                      style="-fx-background-color: #fafafa; -fx-background-radius: 8;">
+                                    <VBox style="-fx-padding: 28 28 28 10;" spacing="20" maxWidth="10000">
+                                    <GridPane hgap="40" vgap="10">
+                                        <columnConstraints>
+                                            <ColumnConstraints halignment="LEFT" minWidth="200"/>
+                                            <ColumnConstraints halignment="LEFT" minWidth="200"/>
+                                            <ColumnConstraints halignment="LEFT" minWidth="100"/>
+                                            <ColumnConstraints halignment="LEFT" minWidth="200"/>
+                                        </columnConstraints>
+                                        <rowConstraints>
+                                            <RowConstraints minHeight="30"/>
+                                            <RowConstraints minHeight="30"/>
+                                            <RowConstraints minHeight="30"/>
+                                        </rowConstraints>
+                                        <Label text="Full Name" GridPane.rowIndex="0" GridPane.columnIndex="0" style="-fx-text-fill: #888;"/>
+                                        <StackPane alignment="CENTER_LEFT" GridPane.rowIndex="0" GridPane.columnIndex="1">
+                                            <Label fx:id="fullNameLabel" style="-fx-font-weight: bold; -fx-font-size: 15px; -fx-text-fill: black;" />
+                                            <TextField fx:id="fullNameField" promptText="Enter full name" visible="false"/>
+                                        </StackPane>
+                                        <Label text="Staff ID" GridPane.rowIndex="0" GridPane.columnIndex="2" style="-fx-text-fill: #888;"/>
+                                        <Label fx:id="staffIdLabel" GridPane.rowIndex="0" GridPane.columnIndex="3" style="-fx-font-weight: bold; -fx-font-size: 15px; -fx-text-fill: black;"/>
+                                        <Label text="Email" GridPane.rowIndex="1" GridPane.columnIndex="0" style="-fx-text-fill: #888;"/>
+                                        <StackPane alignment="CENTER_LEFT" GridPane.rowIndex="1" GridPane.columnIndex="1">
+                                            <Label fx:id="emailLabel" style="-fx-font-weight: bold; -fx-font-size: 15px; -fx-text-fill: black;"/>
+                                            <TextField fx:id="emailField" promptText="Enter email" visible="false"/>
+                                        </StackPane>
+                                        <Label text="Date of Birth" GridPane.rowIndex="2" GridPane.columnIndex="0" style="-fx-text-fill: #888;"/>
+                                        <StackPane alignment="CENTER_LEFT" GridPane.rowIndex="2" GridPane.columnIndex="1">
+                                            <Label fx:id="dobLabel" style="-fx-font-weight: bold; -fx-font-size: 15px; -fx-text-fill: black;" />
+                                            <DatePicker fx:id="dobPicker" promptText="Select date" visible="false"/>
+                                        </StackPane>
+                                    </GridPane>
+
+
+                                        <VBox spacing="10" maxWidth="10000">
+                                            <Label text="Courses Taught" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #222;"/>
+                                            <Label text="Click a course name below to view enrolled students." style="-fx-text-fill: #555; -fx-font-style: italic;" />
+                                            <FlowPane fx:id="courseTagPane" hgap="10" vgap="10"
+                                                      maxWidth="10000"
+                                                      alignment="CENTER_LEFT"
+                                                      style="-fx-padding: 8 0 0 0;"/>
+                                        </VBox>
+                                </VBox>
+                                </VBox>
+                            </VBox>
+                        </VBox>
+                        <Region minHeight="20" maxHeight="20"/>
+                    </VBox>
+                </VBox>
+    </center>
+</BorderPane>

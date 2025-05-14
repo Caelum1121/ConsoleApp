@@ -1,0 +1,53 @@
+/* styles.css */
+.button {
+    -fx-cursor: hand;
+}
+
+.button {
+    -fx-cursor: hand;
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-background-radius: 8;
+    -fx-font-weight: bold;
+    -fx-padding: 6 12;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 3, 0, 0, 1);
+    -fx-transition: all 0.2s ease-in-out;
+}
+
+.button:hover {
+    -fx-background-color: #333;
+}
+
+.button:pressed {
+    -fx-translate-y: 1;
+    -fx-opacity: 0.9;
+}
+
+.chart-legend-item-symbol {
+    -fx-background-color: transparent;
+}
+
+.chart-legend-item {
+    /* Just spacing if needed */
+    -fx-padding: 4 8 4 8;
+}
+
+.chart-legend-item:focused {
+    -fx-background-insets: 0;
+}
+
+/* Color per series index */
+.default-color0.chart-bar, .default-color0.chart-legend-item-symbol {
+    -fx-bar-fill: #0000ff; /* Borrowed - blue */
+    -fx-background-color: #0000ff;
+}
+
+.default-color1.chart-bar, .default-color1.chart-legend-item-symbol {
+    -fx-bar-fill: #008000; /* Returned - green */
+    -fx-background-color: #008000;
+}
+
+.default-color2.chart-bar, .default-color2.chart-legend-item-symbol {
+    -fx-bar-fill: #ff0000; /* Overdue - red */
+    -fx-background-color: #ff0000;
+}

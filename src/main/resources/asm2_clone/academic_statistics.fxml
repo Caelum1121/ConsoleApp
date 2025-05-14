@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="asm2_clone.controller.AcademicStatisticsController"
+            prefHeight="600.0" prefWidth="900.0">
+
+    <!-- Header -->
+    <top>
+        <VBox style="-fx-background-color: #111;">
+            <padding><Insets top="18" left="28"/></padding>
+            <Button fx:id="backButton" text="← Back" onAction="#onDashboardClicked"
+                    style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 15px; -fx-padding: 0 0 10 0;"/>
+            <Label text="UNI LEND" style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+            <Label text="EDUCATION PORTAL" style="-fx-font-size: 14px; -fx-text-fill: #cccccc;"/>
+        </VBox>
+    </top>
+
+    <!-- Content -->
+    <center>
+        <VBox alignment="TOP_CENTER" spacing="20">
+            <Region minHeight="20" maxHeight="20"/>
+            <VBox alignment="TOP_CENTER" style="-fx-background-color: transparent;">
+                <VBox style="-fx-background-color: white; -fx-background-radius: 12; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0, 0, 2);" maxWidth="900" minWidth="700">
+                    <padding><Insets top="18" left="28" right="28" bottom="28"/></padding>
+
+                    <!-- Tabs -->
+                    <HBox spacing="30" style="-fx-padding: 0 0 20 0;">
+                        <Label text="Manage Info" style="-fx-font-size: 16px; -fx-text-fill: #888;-fx-cursor: hand;" onMouseClicked="#onDashboardClicked"/>
+                        <Label text="Borrowing Requests" style="-fx-font-size: 16px; -fx-text-fill: #888;-fx-cursor: hand;" onMouseClicked="#onPendingTabClicked"/>
+                        <Label text="Statistics" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #222; -fx-underline: true;"/>
+                        <Label text="Borrowing History" style="-fx-font-size: 16px; -fx-text-fill: #888; -fx-cursor: hand;" onMouseClicked="#onHistoryClicked"/>
+                        <Label fx:id="equipmentTab" text="Equipment Borrowing" style="-fx-font-size: 16px;-fx-cursor: hand; -fx-text-fill: #888;" onMouseClicked="#onEquipmentClicked"/>
+                    </HBox>
+
+                    <!-- Chart Area -->
+                    <ScrollPane fitToWidth="true" style="-fx-background-color: transparent;" hbarPolicy="NEVER">
+                        <VBox spacing="30" style="-fx-padding: 10 28 28 28; -fx-background-color: white;">
+                            <BarChart fx:id="courseChart"
+                                      title="Borrowed Equipment per Course (by Status)"
+                                      style="-fx-legend-side: bottom;"
+                                      categoryGap="20" barGap="5"
+                                      prefHeight="500" prefWidth="800">
+                                <xAxis>
+                                    <CategoryAxis label="Course" />
+                                </xAxis>
+                                <yAxis>
+                                    <NumberAxis fx:id="yAxis" label="Items Borrowed"/>
+                                </yAxis>
+                            </BarChart>
+
+                            <!-- Lending Summary Section -->
+                            <VBox spacing="20">
+                                <Label text="Supervised Students Lending Summary:" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #222;" />
+                                <Label fx:id="studentTotalLabel"
+                                       text="Total: 0 items"
+                                       style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #333;"/>
+                                <HBox spacing="30" alignment="CENTER_LEFT">
+                                    <VBox><Label text="Pending" style="-fx-font-size: 14px; -fx-text-fill: gray;" />
+                                        <Label fx:id="studentPendingLabel" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: black;" /></VBox>
+                                    <VBox><Label text="Borrowed" style="-fx-font-size: 14px; -fx-text-fill: gray;" />
+                                        <Label fx:id="studentBorrowedLabel" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: blue;" /></VBox>
+                                    <VBox><Label text="Overdue" style="-fx-font-size: 14px; -fx-text-fill: gray;" />
+                                        <Label fx:id="studentOverdueLabel" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: red;" /></VBox>
+                                    <VBox><Label text="Returned" style="-fx-font-size: 14px; -fx-text-fill: gray;" />
+                                        <Label fx:id="studentReturnedLabel" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: green;" /></VBox>
+                                </HBox>
+
+                                <Label text="Your Lending Summary:" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #222;" />
+                                <Label fx:id="selfTotalLabel"
+                                       text="Total: 0 items"
+                                       style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #333;"/>
+                                <HBox spacing="30" alignment="CENTER_LEFT">
+                                    <VBox><Label text="Pending" style="-fx-font-size: 14px; -fx-text-fill: gray;" />
+                                        <Label fx:id="selfPendingLabel" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: black;" /></VBox>
+                                    <VBox><Label text="Borrowed" style="-fx-font-size: 14px; -fx-text-fill: gray;" />
+                                        <Label fx:id="selfBorrowedLabel" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: blue;" /></VBox>
+                                    <VBox><Label text="Overdue" style="-fx-font-size: 14px; -fx-text-fill: gray;" />
+                                        <Label fx:id="selfOverdueLabel" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: red;" /></VBox>
+                                    <VBox><Label text="Returned" style="-fx-font-size: 14px; -fx-text-fill: gray;" />
+                                        <Label fx:id="selfReturnedLabel" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: green;" /></VBox>
+                                </HBox>
+                            </VBox>
+                        </VBox>
+                    </ScrollPane>
+
+                </VBox>
+            </VBox>
+        </VBox>
+    </center>
+</BorderPane>

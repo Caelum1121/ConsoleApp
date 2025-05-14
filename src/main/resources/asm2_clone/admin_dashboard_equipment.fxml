@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.String?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="asm2_clone.controller.AdminDashboardEquipmentController"
+            style="-fx-background-color: white;">
+    <style>
+        .nav-button:hover {
+            -fx-background-color: #f0f0f0 !important;
+        }
+    </style>
+    <!-- Header -->
+    <top>
+        <VBox style="-fx-background-color: black;">
+            <padding><Insets top="20" right="40" bottom="20" left="40"/></padding>
+            <Button fx:id="backButton" text="← Back" onAction="#onBack"
+                    style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 15px; -fx-padding: 0 0 10 0;"/>
+            <Label text="UNI LEND" style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+            <Label text="ADMIN DASHBOARD" style="-fx-font-size: 14px; -fx-text-fill: #cccccc;"/>
+        </VBox>
+    </top>
+
+    <center>
+        <VBox>
+            <!-- Navigation -->
+            <HBox spacing="10" style="-fx-padding: 20 40 20 40; -fx-background-color: white;">
+                <Button text="Users" onAction="#onUsersTabClicked" 
+                        style="-fx-background-color: transparent; -fx-text-fill: black; -fx-cursor: hand;">
+                    <styleClass>
+                        <String fx:value="nav-button"/>
+                    </styleClass>
+                </Button>
+                <Button text="Equipment"
+                        style="-fx-background-color: transparent; -fx-text-fill: black; -fx-font-weight: bold; -fx-cursor: hand; -fx-underline: true;"/>
+                <Button text="Courses" onAction="#onCoursesTabClicked"
+                        style="-fx-background-color: transparent; -fx-text-fill: black; -fx-cursor: hand;">
+                    <styleClass>
+                        <String fx:value="nav-button"/>
+                    </styleClass>
+                </Button>
+                <Button text="Borrowing Records"
+                        onAction="#onBorrowingRecordsTabClicked"
+                        style="-fx-background-color: transparent; -fx-text-fill: #666; -fx-cursor: hand;">
+                    <styleClass>
+                        <String fx:value="nav-button"/>
+                    </styleClass>
+                </Button>
+                <Button fx:id="statisticsTab" text="Statistics" onAction="#onStatisticsTabClicked"
+                        style="-fx-background-color: transparent; -fx-text-fill: black; -fx-cursor: hand;"/>
+            </HBox>
+
+            <!-- Search and Filter Bar -->
+            <HBox spacing="15" style="-fx-padding: 0 40 20 40;" alignment="CENTER_LEFT">
+                <TextField fx:id="searchField" promptText="Search equipment..." prefWidth="300"
+                          style="-fx-background-color: #f5f5f5; -fx-background-radius: 4; -fx-padding: 8;"/>
+                <ComboBox fx:id="conditionFilter" promptText="Condition" prefWidth="150"
+                          style="-fx-background-color: #f5f5f5; -fx-background-radius: 4;"/>
+                <ComboBox fx:id="statusFilter" promptText="Status" prefWidth="150"
+                          style="-fx-background-color: #f5f5f5; -fx-background-radius: 4;"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button text="Add New" fx:id="addNewButton"
+                        style="-fx-background-color: black; -fx-text-fill: white; -fx-background-radius: 4;"/>
+            </HBox>
+
+            <!-- Scrollable Content Area -->
+            <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS" 
+                       style="-fx-background-color: transparent; -fx-padding: 0;">
+                <VBox alignment="TOP_CENTER">
+                    <!-- Equipment Grid -->
+                    <FlowPane fx:id="equipmentGrid" 
+                             hgap="20" vgap="20"
+                             style="-fx-padding: 20 40 40 40;"
+                             prefWrapLength="920">
+                        <!-- Equipment cards will be added here dynamically -->
+                    </FlowPane>
+                </VBox>
+            </ScrollPane>
+        </VBox>
+    </center>
+</BorderPane> 

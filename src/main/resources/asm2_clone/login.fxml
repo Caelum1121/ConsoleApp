@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.effect.*?>
+
+<StackPane xmlns:fx="http://javafx.com/fxml" fx:controller="asm2_clone.controller.LoginController"
+           style="-fx-background-color: white;">
+           
+    <!-- Main Container -->
+    <VBox alignment="CENTER" maxWidth="400" spacing="25">
+        <!-- Card with border -->
+        <VBox style="-fx-background-color: white; -fx-border-color: #0078D4; -fx-border-radius: 8; -fx-background-radius: 8;"
+              maxWidth="400" minWidth="350">
+            <effect>
+                <DropShadow color="#00000022" radius="10" spread="0.1"/>
+            </effect>
+            
+            <!-- Header -->
+            <VBox alignment="CENTER" style="-fx-background-color: black; -fx-background-radius: 8 8 0 0;">
+                <padding>
+                    <Insets top="25" bottom="25"/>
+                </padding>
+                <Label text="UNI LEND" 
+                       style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+                <Label text="EDUCATION PORTAL"
+                       style="-fx-font-size: 12px; -fx-text-fill: #cccccc;"/>
+            </VBox>
+            
+            <!-- Login Form -->
+            <VBox spacing="20">
+                <padding>
+                    <Insets top="30" right="30" bottom="30" left="30"/>
+                </padding>
+                
+                <Label text="Welcome! Please login" 
+                       style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+                <Label fx:id="errorLabel" text="" visible="false" style="-fx-text-fill: #c62828; -fx-font-size: 13px; -fx-padding: 0 0 8 0;"/>
+                
+                <VBox spacing="15">
+                    <TextField fx:id="usernameField" promptText="Username"
+                             style="-fx-background-color: #f5f5f5; -fx-background-radius: 4; -fx-padding: 12;">
+                        <effect>
+                            <InnerShadow choke="0.1" color="#0000000d" height="1" radius="0" width="1"/>
+                        </effect>
+                    </TextField>
+                    
+                    <!-- Password Field (hidden by default) -->
+                    <StackPane>
+                        <PasswordField fx:id="passwordField" promptText="Password"
+                                      style="-fx-background-color: #f5f5f5; -fx-background-radius: 4; -fx-padding: 12;"
+                                      onAction="#onLogin"/>
+                        <TextField fx:id="passwordVisibleField" promptText="Password"
+                                   style="-fx-background-color: #f5f5f5; -fx-background-radius: 4; -fx-padding: 12;"
+                                   onAction="#onLogin"/>
+                    </StackPane>
+                    <CheckBox fx:id="showPasswordCheckBox" text="Show Password"
+                              style="-fx-text-fill: #888; -fx-font-size: 12px; -fx-padding: 0 0 0 2;"/>
+                    
+                    <Button fx:id="loginButton" text="Login" onAction="#onLogin"
+                            style="-fx-background-color: #333333; -fx-text-fill: white; 
+                                   -fx-background-radius: 4; -fx-padding: 12;"
+                            maxWidth="Infinity" defaultButton="true"/>
+                    
+                    <StackPane>
+                        <Label text="or" style="-fx-text-fill: #666666;"/>
+                    </StackPane>
+                    
+                    <Button fx:id="visitorButton" text="Continue as Visitor" onAction="#onVisitor"
+                            style="-fx-background-color: #f5f5f5; -fx-text-fill: #333333; 
+                                   -fx-background-radius: 4; -fx-padding: 12;"
+                            maxWidth="Infinity">
+                        <graphic>
+                            <Region style="-fx-background-color: #333333; -fx-shape: 'M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7ZM12 14C8.13401 14 5 17.134 5 21H19C19 17.134 15.866 14 12 14Z'; -fx-min-width: 14; -fx-min-height: 14; -fx-max-width: 14; -fx-max-height: 14;"/>
+                        </graphic>
+                    </Button>
+                </VBox>
+            </VBox>
+        </VBox>
+    </VBox>
+</StackPane> 

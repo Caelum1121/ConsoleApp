@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane xmlns:fx="http://javafx.com/fxml"
+           fx:controller="asm2_clone.controller.AcademicBorrowingController">
+
+    <BorderPane style="-fx-background-color: #f4f4f4;">
+
+        <!-- Header -->
+        <top>
+            <VBox style="-fx-background-color: #111;">
+                <padding><Insets top="18" left="28" right="0" bottom="0"/></padding>
+                <Button fx:id="backButton" text="← Back" onAction="#onBack"
+                        style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 15px; -fx-padding: 0 0 10 0;"/>
+                <Label text="UNI LEND" style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+                <Label text="BORROWING HISTORY" style="-fx-font-size: 14px; -fx-text-fill: #cccccc;"/>
+            </VBox>
+        </top>
+
+        <!-- Main Content -->
+        <center>
+            <VBox alignment="TOP_CENTER" spacing="20">
+                <Region minHeight="20" maxHeight="20"/>
+                <VBox alignment="TOP_CENTER" spacing="0" style="-fx-background-color: transparent;">
+                    <VBox style="-fx-background-color: white; -fx-background-radius: 12; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0, 0, 2);" maxWidth="900" minWidth="700">
+                        <padding><Insets top="18" left="28" right="28" bottom="28"/></padding>
+
+                        <!-- Tabs -->
+                        <HBox spacing="30" style="-fx-padding: 0 0 20 0;">
+                            <Label fx:id="infoTab" text="Manage Info"
+                                   style="-fx-font-size: 16px; -fx-text-fill: #888; -fx-cursor: hand;"
+                                   onMouseClicked="#onUsersTabClicked"/>
+                            <Label text="Borrowing Requests"
+                                   style="-fx-font-size: 16px; -fx-text-fill: #888; -fx-cursor: hand;"
+                                   onMouseClicked="#onPendingTabClicked"/>
+                            <Label text="Statistics"
+                                   style="-fx-font-size: 16px; -fx-text-fill: #888; -fx-cursor: hand;"
+                                   onMouseClicked="#onStatisticsTabClicked"/>
+                            <Label text="Borrowing History"
+                                   style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #222; -fx-underline: true;"/>
+                            <Label fx:id="equipmentTab" text="Equipment Borrowing"
+                                   style="-fx-font-size: 16px; -fx-text-fill: #888; -fx-cursor: hand;"
+                                   onMouseClicked="#onEquipmentTabClicked"/>
+                        </HBox>
+
+                        <!-- Filter + Scrollable Content -->
+                        <VBox spacing="20" alignment="TOP_CENTER">
+                            <HBox spacing="10">
+                                <TextField fx:id="searchField" promptText="Search by equipment or purpose..." prefWidth="300"/>
+                                <ComboBox fx:id="statusFilter" promptText="Status" prefWidth="150"/>
+                            </HBox>
+
+                            <ScrollPane fitToWidth="true" style="-fx-background-color: transparent;">
+                                <VBox fx:id="historyContainer" spacing="12" alignment="TOP_CENTER">
+                                    <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+                                </VBox>
+                            </ScrollPane>
+                        </VBox>
+                    </VBox>
+                </VBox>
+                <Region minHeight="20" maxHeight="20"/>
+            </VBox>
+        </center>
+    </BorderPane>
+
+    <!-- Loading Overlay -->
+    <AnchorPane fx:id="loadingOverlay" visible="false"
+                style="-fx-background-color: rgba(255,255,255,0.7);">
+        <VBox alignment="CENTER" spacing="10"
+              AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0"
+              AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+            <ProgressIndicator />
+            <Label text="Processing, please wait..." style="-fx-font-size: 14px;" />
+        </VBox>
+    </AnchorPane>
+</StackPane>

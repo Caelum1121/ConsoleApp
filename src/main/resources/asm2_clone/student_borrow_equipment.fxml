@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="asm2_clone.controller.StudentBorrowEquipmentController"
+            style="-fx-background-color: #f4f4f4;">
+
+    <center>
+        <VBox alignment="TOP_CENTER" spacing="0">
+            <Region minHeight="20" maxHeight="20"/>
+            <VBox alignment="TOP_CENTER" spacing="0"
+                  style="-fx-background-color: white; -fx-background-radius: 12; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0, 0, 2);"
+                  maxWidth="900" minWidth="700">
+                <padding><Insets top="18" left="28" right="28" bottom="28"/></padding>
+
+                <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-padding: 0 0 18 0;">
+                    <Label text="Available Equipment" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #222;" />
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button fx:id="borrowSelectedButton" text="Borrow Selected (0)" onAction="#onBorrowSelected"
+                            style="-fx-background-color: #888; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 8 20; -fx-background-radius: 6;" />
+                </HBox>
+
+                <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-padding: 0 0 18 0;">
+                    <TextField fx:id="searchField" promptText="Search equipment..." prefWidth="300"/>
+                    <ComboBox fx:id="conditionFilter" promptText="Filter by Condition" prefWidth="200"/>
+                </HBox>
+
+                <ScrollPane fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED"
+                            style="-fx-background-color: transparent; -fx-background-insets: 0; -fx-padding: 0;"
+                            prefHeight="600">
+                    <content>
+                        <VBox fx:id="equipmentList" spacing="12" style="-fx-padding: 0 0 10 0;"/>
+                    </content>
+                </ScrollPane>
+            </VBox>
+            <Region minHeight="20" maxHeight="20"/>
+        </VBox>
+    </center>
+
+</BorderPane> 

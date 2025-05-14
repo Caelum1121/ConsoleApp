@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" 
+      fx:controller="asm2_clone.controller.StudentDashboardController"
+      style="-fx-background-color: #f4f4f4;">
+
+    <!-- Header with Back Button -->
+    <VBox style="-fx-background-color: #111; -fx-padding: 20;">
+        <HBox alignment="CENTER_LEFT">
+            <Button fx:id="backButton" text="← Back" onAction="#onBack"
+                    style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 15px; -fx-cursor: hand;"/>
+        </HBox>
+        <VBox style="-fx-padding: 10 0 0 0;">
+            <Label text="UNI LEND" style="-fx-font-size: 32px; -fx-text-fill: white; -fx-font-weight: bold;"/>
+            <Label text="STUDENT DASHBOARD" style="-fx-font-size: 14px; -fx-text-fill: #cccccc;"/>
+        </VBox>
+    </VBox>
+
+    <!-- Navigation Tabs -->
+    <HBox style="-fx-background-color: white; -fx-padding: 0 20;">
+        <HBox spacing="30" alignment="CENTER_LEFT">
+            <Label fx:id="profileTab" text="Profile" onMouseClicked="#onProfileTabClicked"
+                   style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-underline: true; -fx-padding: 15 0; -fx-cursor: hand;"/>
+            <Label fx:id="historyTab" text="Borrowing History" onMouseClicked="#onBorrowingHistoryTabClicked" 
+                   style="-fx-font-size: 16px; -fx-text-fill: #666666; -fx-cursor: hand; -fx-padding: 15 0;"/>
+            <Label fx:id="borrowTab" text="Borrow Equipment" onMouseClicked="#onBorrowEquipmentTabClicked"
+                   style="-fx-font-size: 16px; -fx-text-fill: #666666; -fx-cursor: hand; -fx-padding: 15 0;"/>
+            <Label fx:id="returnTab" text="Return Equipment" onMouseClicked="#onReturnEquipmentTabClicked"
+                   style="-fx-font-size: 16px; -fx-text-fill: #666666; -fx-cursor: hand; -fx-padding: 15 0;"/>
+        </HBox>
+    </HBox>
+
+    <!-- Main Content -->
+    <StackPane fx:id="mainContent" style="-fx-background-color: transparent;">
+        <VBox fx:id="profileContent" style="-fx-background-color: #f4f4f4; -fx-padding: 30;">
+            <!-- Combined Profile Information and Enrolled Courses -->
+            <VBox style="-fx-background-color: white; -fx-background-radius: 12; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0, 0, 2); -fx-padding: 20;">
+                <HBox alignment="CENTER_LEFT" style="-fx-padding: 0 0 20 0;">
+                    <Label text="Student Profile" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button fx:id="editProfileButton" text="Edit Profile" onAction="#onEdit"
+                            style="-fx-background-color: black; -fx-text-fill: white; -fx-padding: 8 16; -fx-background-radius: 4; -fx-cursor: hand;"/>
+                    <Button fx:id="confirmButton" text="Save" onAction="#onConfirm" visible="false"
+                            style="-fx-background-color: black; -fx-text-fill: white; -fx-padding: 8 16; -fx-background-radius: 4; -fx-cursor: hand;"/>
+                </HBox>
+                <!-- Profile Fields in Grid -->
+                <GridPane vgap="20" hgap="50">
+                    <columnConstraints>
+                        <ColumnConstraints minWidth="100" prefWidth="150"/>
+                        <ColumnConstraints minWidth="200" prefWidth="300"/>
+                    </columnConstraints>
+                    <!-- Full Name -->
+                    <Label text="Full Name" style="-fx-text-fill: #666666; -fx-font-size: 14px;" 
+                           GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                    <Label fx:id="fullNameLabel" style="-fx-font-weight: bold; -fx-font-size: 14px;" 
+                           GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+                    <TextField fx:id="fullNameField" visible="false" 
+                              GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+                    <!-- Student ID -->
+                    <Label text="Student ID" style="-fx-text-fill: #666666; -fx-font-size: 14px;" 
+                           GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                    <Label fx:id="studentIdLabel" style="-fx-font-weight: bold; -fx-font-size: 14px;" 
+                           GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                    <!-- Email -->
+                    <Label text="Email" style="-fx-text-fill: #666666; -fx-font-size: 14px;" 
+                           GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                    <Label fx:id="emailLabel" style="-fx-font-weight: bold; -fx-font-size: 14px;" 
+                           GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                    <TextField fx:id="emailField" visible="false" 
+                              GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                    <!-- Date of Birth -->
+                    <Label text="Date of Birth" style="-fx-text-fill: #666666; -fx-font-size: 14px;" 
+                           GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                    <Label fx:id="dobLabel" style="-fx-font-weight: bold; -fx-font-size: 14px;" 
+                           GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                    <DatePicker fx:id="dobPicker" visible="false" 
+                               GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                </GridPane>
+                <!-- Enrolled Courses Section (moved inside the same card) -->
+                <Label text="Enrolled Courses" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-padding: 20 0 15 0;"/>
+                <FlowPane fx:id="courseTagPane" hgap="15" vgap="15">
+                    <padding>
+                        <Insets top="0" right="0" bottom="0" left="0"/>
+                    </padding>
+                </FlowPane>
+            </VBox>
+        </VBox>
+    </StackPane>
+</VBox>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+<?import java.lang.String?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="asm2_clone.controller.AdminDashboardStatisticsController"
+            style="-fx-background-color: white;">
+    <!-- Header -->
+    <top>
+        <VBox style="-fx-background-color: black;">
+            <padding><Insets top="20" right="40" bottom="20" left="40"/></padding>
+            <Button fx:id="backButton" text="← Back" onAction="#onBack"
+                    style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 15px; -fx-padding: 0 0 10 0;"/>
+            <Label text="UNI LEND" style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+            <Label text="ADMIN DASHBOARD" style="-fx-font-size: 14px; -fx-text-fill: #cccccc;"/>
+        </VBox>
+    </top>
+
+    <center>
+        <VBox alignment="TOP_CENTER" spacing="0">
+            <!-- Navigation Bar -->
+            <HBox spacing="10" style="-fx-padding: 20 40 20 40; -fx-background-color: white;">
+                <Button text="Users" onAction="#onUsersTabClicked"
+                        style="-fx-background-color: transparent; -fx-text-fill: black; -fx-cursor: hand;"/>
+                <Button text="Equipment" onAction="#onEquipmentTabClicked"
+                        style="-fx-background-color: transparent; -fx-text-fill: black; -fx-cursor: hand;"/>
+                <Button text="Courses" onAction="#onCoursesTabClicked"
+                        style="-fx-background-color: transparent; -fx-text-fill: black; -fx-cursor: hand;"/>
+                <Button text="Borrowing Records" onAction="#onBorrowingRecordsTabClicked"
+                        style="-fx-background-color: transparent; -fx-text-fill: black; -fx-cursor: hand;"/>
+                <Button text="Statistics"
+                        style="-fx-background-color: transparent; -fx-text-fill: black; -fx-font-weight: bold; -fx-cursor: hand; -fx-underline: true;"/>
+            </HBox>
+
+            <!-- Main Card Centered and Responsive -->
+            <StackPane style="-fx-background-color: transparent;">
+                <!-- Loading Label -->
+                <Label fx:id="loadingLabel" text="Loading statistics..." style="-fx-font-size: 22px; -fx-text-fill: #888;" StackPane.alignment="CENTER"/>
+                <!-- Statistics Grid -->
+                <VBox fx:id="statsCard" alignment="CENTER" style="-fx-background-color: white; -fx-background-radius: 18; -fx-padding: 48 0 48 0; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.10), 12, 0, 0, 2);" maxWidth="1100" prefWidth="0.95" StackPane.alignment="CENTER" visible="false" managed="false">
+                    <GridPane hgap="48" vgap="36" alignment="CENTER">
+                        <!-- Row 1 -->
+                        <StackPane GridPane.rowIndex="0" GridPane.columnIndex="0" style="-fx-background-color: #f7f7f7; -fx-background-radius: 12; -fx-padding: 32 48;">
+                            <VBox alignment="TOP_LEFT" spacing="10">
+                                <Label text="Total Users" style="-fx-font-size: 16px; -fx-text-fill: #888;"/>
+                                <Label fx:id="totalUsersLabel" text="" style="-fx-font-size: 38px; -fx-font-weight: bold; -fx-text-fill: #222;"/>
+                            </VBox>
+                        </StackPane>
+                        <StackPane GridPane.rowIndex="0" GridPane.columnIndex="1" style="-fx-background-color: #f7f7f7; -fx-background-radius: 12; -fx-padding: 32 48;">
+                            <VBox alignment="TOP_LEFT" spacing="10">
+                                <Label text="Total Equipment" style="-fx-font-size: 16px; -fx-text-fill: #888;"/>
+                                <Label fx:id="totalEquipmentLabel" text="" style="-fx-font-size: 38px; -fx-font-weight: bold; -fx-text-fill: #222;"/>
+                            </VBox>
+                        </StackPane>
+                        <StackPane GridPane.rowIndex="0" GridPane.columnIndex="2" style="-fx-background-color: #f7f7f7; -fx-background-radius: 12; -fx-padding: 32 48;">
+                            <VBox alignment="TOP_LEFT" spacing="10">
+                                <Label text="Pending Borrows" style="-fx-font-size: 16px; -fx-text-fill: #888;"/>
+                                <Label fx:id="pendingBorrowsLabel" text="" style="-fx-font-size: 38px; -fx-font-weight: bold; -fx-text-fill: #222;"/>
+                            </VBox>
+                        </StackPane>
+                        <!-- Row 2 -->
+                        <StackPane GridPane.rowIndex="1" GridPane.columnIndex="0" style="-fx-background-color: #f7f7f7; -fx-background-radius: 12; -fx-padding: 32 48;">
+                            <VBox alignment="TOP_LEFT" spacing="10">
+                                <Label text="Active Borrows" style="-fx-font-size: 16px; -fx-text-fill: #888;"/>
+                                <Label fx:id="activeBorrowsLabel" text="" style="-fx-font-size: 38px; -fx-font-weight: bold; -fx-text-fill: #222;"/>
+                            </VBox>
+                        </StackPane>
+                        <StackPane GridPane.rowIndex="1" GridPane.columnIndex="1" style="-fx-background-color: #f7f7f7; -fx-background-radius: 12; -fx-padding: 32 48;">
+                            <VBox alignment="TOP_LEFT" spacing="10">
+                                <Label text="Overdue Items" style="-fx-font-size: 16px; -fx-text-fill: #888;"/>
+                                <Label fx:id="overdueItemsLabel" text="" style="-fx-font-size: 38px; -fx-font-weight: bold; -fx-text-fill: #222;"/>
+                            </VBox>
+                        </StackPane>
+                        <StackPane GridPane.rowIndex="1" GridPane.columnIndex="2" style="-fx-background-color: #f7f7f7; -fx-background-radius: 12; -fx-padding: 32 48;">
+                            <VBox alignment="TOP_LEFT" spacing="10">
+                                <Label text="Total Borrows" style="-fx-font-size: 16px; -fx-text-fill: #888;"/>
+                                <Label fx:id="totalBorrowsLabel" text="" style="-fx-font-size: 38px; -fx-font-weight: bold; -fx-text-fill: #222;"/>
+                            </VBox>
+                        </StackPane>
+                    </GridPane>
+                </VBox>
+            </StackPane>
+        </VBox>
+    </center>
+</BorderPane>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane xmlns:fx="http://javafx.com/fxml"
+           fx:controller="asm2_clone.controller.ProfessionalDashboardEquipmentController">
+    <BorderPane style="-fx-background-color: #f4f4f4;">
+
+        <!-- Header -->
+        <top>
+            <VBox style="-fx-background-color: #111;">
+                <padding><Insets top="18" left="28" right="0" bottom="0"/></padding>
+                <Button fx:id="backButton" text="← Back" onAction="#onBack"
+                        style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 15px; -fx-padding: 0 0 10 0;"/>
+                <Label text="UNI LEND" style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+                <Label text="EDUCATION PORTAL" style="-fx-font-size: 14px; -fx-text-fill: #cccccc;"/>
+            </VBox>
+        </top>
+
+        <!-- Main content area -->
+        <center>
+            <VBox alignment="TOP_CENTER" spacing="20">
+                <Region minHeight="20" maxHeight="20"/>
+
+                <!-- White rounded card -->
+                <VBox alignment="TOP_CENTER" spacing="0"
+                      style="-fx-background-color: white; -fx-background-radius: 12; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0, 0, 2);"
+                      maxWidth="900" minWidth="700">
+                    <padding><Insets top="18" left="28" right="28" bottom="28"/></padding>
+
+                    <!-- Tab headers -->
+                    <HBox spacing="30" style="-fx-padding: 0 0 20 0;">
+                        <Label text="Manage Info" style="-fx-font-size: 16px; -fx-text-fill: #888; -fx-cursor: hand;" onMouseClicked="#onUsersTabClicked"/>
+                        <Label fx:id="equipmentTab" text="Equipment Borrowing" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #222; -fx-underline: true;" onMouseClicked="#onHistoryTabClicked"/>
+                        <Label text="Borrowing History" style="-fx-font-size: 16px; -fx-text-fill: #888; -fx-cursor: hand;" onMouseClicked="#onHistoryTabClicked"/>
+                    </HBox>
+
+                    <!-- Equipment section -->
+                    <VBox spacing="20">
+                        <Label text="Available Equipment"
+                               style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #222;" />
+
+                        <!-- Search + Filter -->
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <TextField fx:id="searchField" promptText="Search equipment..." prefWidth="300"/>
+                            <ComboBox fx:id="conditionFilter" promptText="Filter by Condition" prefWidth="200"/>
+                        </HBox>
+
+                        <!-- Equipment display -->
+                        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED"
+                                    style="-fx-background-color: transparent; -fx-background-insets: 0; -fx-padding: 0;"
+                                    prefHeight="600">
+                            <content>
+                                <FlowPane fx:id="equipmentGrid"
+                                          hgap="20" vgap="20"
+                                          style="-fx-background-color: transparent;"
+                                          maxWidth="860">
+                                    <padding>
+                                        <Insets top="20" right="20" bottom="20" left="20"/>
+                                    </padding>
+                                </FlowPane>
+                            </content>
+                        </ScrollPane>
+
+                        <!-- Submit Selection Button -->
+                        <HBox alignment="CENTER_RIGHT">
+                            <Button text="Submit Selected" onAction="#onSubmitSelected"
+                                    style="-fx-background-color: #111; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 8 20; -fx-background-radius: 6;" />
+                        </HBox>
+
+                    </VBox>
+                </VBox>
+
+                <Region minHeight="20" maxHeight="20"/>
+            </VBox>
+        </center>
+
+    </BorderPane>
+
+    <AnchorPane fx:id="loadingOverlay" visible="false" style="-fx-background-color: rgba(255,255,255,0.7);">
+        <VBox alignment="CENTER" spacing="10"
+              AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
+              AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0">
+            <ProgressIndicator />
+            <Label text="Processing, please wait..." style="-fx-font-size: 14px;" />
+        </VBox>
+    </AnchorPane>
+</StackPane>
